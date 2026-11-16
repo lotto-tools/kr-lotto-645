@@ -1,0 +1,8 @@
+User-agent: *
+Allow: /
+
+# 이미지·스타일·스크립트도 수집 허용
+Allow: /assets/
+Allow: /data/
+
+Sitemap: https://lotto-tools.github.io/kr-lotto-645/sitemap.xml

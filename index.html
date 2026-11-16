@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>로또 6/45 당첨번호 조회 · 번호 통계 · 세후 실수령액 계산 | 로또 분석소</title>
+<meta name="description" content="동행복권 공식 데이터 1회~1,250회 기반 로또 6/45 분석 사이트. 최신 회차 당첨번호 조회, 번호별 출현 빈도·미출현·홀짝 통계, 조건 필터 번호 생성과 역대 당첨 시뮬레이션, 2026년 세율 기준 당첨금 세후 실수령액 계산기를 무료로 제공합니다.">
+<meta name="keywords" content="로또, 로또645, 로또 당첨번호, 로또 번호 통계, 로또 세금, 로또 실수령액, 로또 번호 생성기, 동행복권">
+<meta name="author" content="로또 6/45 분석소">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://lotto-tools.github.io/kr-lotto-645/">
+<meta property="og:type" content="website">
+<meta property="og:title" content="로또 6/45 당첨번호 조회 · 번호 통계 · 세후 실수령액 계산">
+<meta property="og:description" content="공식 데이터 1,250회 기반 번호 통계와 당첨금 세금 계산기를 한 페이지에서. 회원가입 없이 무료로 이용하세요.">
+<meta property="og:url" content="https://lotto-tools.github.io/kr-lotto-645/">
+<meta property="og:locale" content="ko_KR">
+<meta name="theme-color" content="#0d1730">
+<meta property="og:image" content="https://lotto-tools.github.io/kr-lotto-645/assets/img/og-cover.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="로또 6/45 당첨번호 조회 · 번호 통계 · 세후 실수령액 계산">
+<meta name="twitter:description" content="동행복권 공식 데이터 1,250회 기반 번호 통계와 당첨금 세금 계산기">
+<meta name="twitter:image" content="https://lotto-tools.github.io/kr-lotto-645/assets/img/og-cover.png">
+
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230d1730'/%3E%3Ccircle cx='32' cy='32' r='17' fill='%23ffd84d'/%3E%3Ccircle cx='25' cy='25' r='4' fill='%230d1730'/%3E%3Ccircle cx='39' cy='25' r='4' fill='%230d1730'/%3E%3Ccircle cx='25' cy='39' r='4' fill='%230d1730'/%3E%3Ccircle cx='39' cy='39' r='4' fill='%230d1730'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="assets/css/style.css">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": "로또 6/45 분석소",
+  "url": "https://lotto-tools.github.io/kr-lotto-645/",
+  "description": "동행복권 공식 데이터를 기반으로 로또 6/45 당첨번호 조회, 번호 통계, 번호 생성 시뮬레이션, 당첨금 세금 계산을 제공하는 무료 정보 사이트",
+  "inLanguage": "ko-KR"
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "이 사이트의 당첨번호는 실제 데이터인가요?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "네. 동행복권 공식 홈페이지의 회차별 조회 데이터를 그대로 수집해 제1회(2002년 12월 7일)부터 제1,250회(2026년 11월 14일)까지 저장했습니다. 당첨번호, 보너스번호, 등수별 당첨자 수와 당첨금, 회차 판매액을 모두 포함하며 임의로 만든 값은 없습니다."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "번호 통계를 보면 당첨 확률이 높아지나요?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "아니요. 로또 6/45는 매 회차 독립적으로 추첨되므로 어떤 번호 조합을 골라도 1등 확률은 1/8,145,060으로 같습니다. 통계는 지난 결과를 정리한 기록이며 미래를 예측하지 않습니다."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "당첨금에 세금은 얼마나 떼나요?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "200만원 이하는 비과세입니다. 200만원을 넘으면 전액에 22%(소득세 20% + 지방소득세 2%)가 적용되고, 3억원을 넘는 금액에는 33%(소득세 30% + 지방소득세 3%)가 적용됩니다."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "당첨금은 언제까지 받을 수 있나요?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "당첨금 지급개시일(추첨일 다음날)부터 1년 안에 수령해야 하며, 기한이 지나면 권리가 소멸해 받을 수 없습니다."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "이 사이트는 로또를 판매하나요?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "아니요. 정보 제공만 하는 비영리 분석 사이트로 복권 판매나 구매 대행을 하지 않습니다. 복권 구매는 만 19세 이상만 가능하며 동행복권 공식 판매점이나 공식 온라인 채널을 이용해야 합니다."
+      }
+    }
+  ]
+}
+</script>
+<!-- Google AdSense: 사이트 승인 후 이 자리에 애드센스 스크립트를 삽입합니다. -->
+</head>
+<body>
+
+<header class="site-header">
+  <div class="wrap header-inner">
+    <a class="brand" href="index.html" aria-label="로또 6/45 분석소 홈">
+      <span class="brand-mark" aria-hidden="true">🎱</span>
+      <span class="brand-text">로또 6/45 분석소<small>당첨번호 · 통계 · 세금 계산</small></span>
+    </a>
+    <nav class="site-nav" aria-label="주요 메뉴">
+      <a href="#latest" data-tab="latest" class="is-active">최신 회차</a>
+      <a href="#stats" data-tab="stats">번호 분석</a>
+      <a href="#generator" data-tab="generator">번호 생성</a>
+      <a href="#calculator" data-tab="calculator">세금 계산</a>
+      <a href="guide.html">가이드</a>
+    </nav>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="wrap hero-grid">
+    <div>
+      <p class="eyebrow"><span class="live-dot" aria-hidden="true"></span>제 <span id="heroRound">1250</span>회 · <span id="heroDate">2026.11.14</span> 추첨</p>
+      <h1>로또 6/45,<br>번호보다 데이터로 확인하세요</h1>
+      <p class="hero-sub">동행복권 공식 회차 데이터 1회~1,250회를 그대로 수집해 당첨번호 조회, 출현 통계, 번호 생성, 세후 실수령액 계산을 한 페이지에 담았습니다.</p>
+      <div class="hero-badges">
+        <span>공식 데이터 1,250회 수록</span>
+        <span>2026년 세율 기준</span>
+        <span>회원가입 없는 무료 도구</span>
+      </div>
+    </div>
+    <div class="hero-card">
+      <div class="hero-card-top">
+        <div class="hero-round">제 <span id="heroRound2">1250</span>회<em id="heroDate2">2026.11.14</em></div>
+        <span class="chip"><b id="heroWinners">9</b>명 1등</span>
+      </div>
+      <div class="hero-balls" id="heroBalls">
+        <span class="ball b1">1</span>
+        <span class="ball b1">5</span>
+        <span class="ball b2">18</span>
+        <span class="ball b3">23</span>
+        <span class="ball b3">27</span>
+        <span class="ball b3">28</span>
+        <span class="hero-bonus-divider">+</span>
+        <span class="ball b1 ball--sm">8</span>
+      </div>
+      <dl class="hero-prize">
+        <div><dt>1등 1인당 당첨금</dt><dd id="heroPrize1">31억 316만 4,459원</dd></div>
+        <div><dt>1등 세후 실수령액</dt><dd class="accent" id="heroPrize1Net">21억 1,212만 189원</dd></div>
+        <div><dt>2등 (1인당)</dt><dd id="heroPrize2">4,654만 7,467원</dd></div>
+        <div><dt>3등 (1인당)</dt><dd id="heroPrize3">149만 1,906원</dd></div>
+      </dl>
+    </div>
+  </div>
+</section>
+
+<div class="tabbar">
+  <div class="wrap tabbar-inner" role="tablist" aria-label="콘텐츠 탭">
+    <button type="button" class="tab is-active" data-tab="latest" role="tab" aria-selected="true">최신 회차</button>
+    <button type="button" class="tab" data-tab="stats" role="tab" aria-selected="false">번호 분석</button>
+    <button type="button" class="tab" data-tab="generator" role="tab" aria-selected="false">번호 생성기</button>
+    <button type="button" class="tab" data-tab="calculator" role="tab" aria-selected="false">세금 계산기</button>
+    <a class="tab" href="guide.html">수령 가이드</a>
+  </div>
+</div>
+
+<main class="wrap">
+
+  <noscript>
+    <div class="notice notice--warn" style="margin-bottom:16px;">
+      <span aria-hidden="true">⚠</span>
+      <p style="margin:0;">번호 통계·생성기·세금 계산기는 JavaScript로 동작합니다. 브라우저에서 JavaScript를 허용하면 모든 기능을 이용할 수 있으며, 최신 회차 정보와 안내는 그대로 확인할 수 있습니다.</p>
+    </div>
+  </noscript>
+
+  <!-- ================= 최신 회차 ================= -->
+  <section class="panel" id="panel-latest" role="tabpanel" aria-label="최신 회차">
+    <div class="card">
+      <div class="draw-head">
+        <div>
+          <h2 class="card-title">회차별 당첨 결과 조회</h2>
+          <p class="card-desc">1회부터 1,250회까지 원하는 회차의 당첨번호와 등수별 당첨금을 확인합니다.</p>
+        </div>
+        <form class="lookup" id="lookupForm" autocomplete="off">
+          <label class="sr-only" for="roundInput">조회할 회차</label>
+          <input type="number" id="roundInput" min="1" max="1250" step="1" value="1250" inputmode="numeric">
+          <button type="button" class="btn btn--sm" id="btnPrevRound" aria-label="이전 회차">◀ 이전</button>
+          <button type="button" class="btn btn--sm" id="btnNextRound" aria-label="다음 회차">다음 ▶</button>
+          <button type="button" class="btn btn--sm btn--dark" id="btnLatestRound">최신 회차</button>
+          <button type="submit" class="btn btn--sm btn--primary">조회</button>
+        </form>
+      </div>
+
+      <div id="drawCard">
+        <div class="draw-round"><span id="drawRoundLabel">제 1250회</span><span id="drawDateLabel">2026년 11월 14일 추첨</span></div>
+        <div class="draw-balls" id="drawBalls" style="margin:14px 0 16px;">
+          <span class="ball b1">1</span><span class="ball b1">5</span><span class="ball b2">18</span>
+          <span class="ball b3">23</span><span class="ball b3">27</span><span class="ball b3">28</span>
+          <span class="plus">+</span><span class="ball b1 ball--sm">8</span>
+        </div>
+        <dl class="stat-grid" id="drawStats">
+          <div class="stat"><dt>해당 회차 판매액</dt><dd id="statSales">1,167억 3,122만 7,000원</dd></div>
+          <div class="stat"><dt>1등 당첨자 수</dt><dd id="statWinners">9명</dd></div>
+          <div class="stat"><dt>1등 1인당 당첨금</dt><dd id="statPrize1">31억 316만 4,459원</dd></div>
+          <div class="stat is-key"><dt>1등 세후 실수령액</dt><dd id="statNet1">21억 1,212만 189원<small>세율 33% 구간 적용</small></dd></div>
+        </dl>
+
+        <div class="table-scroll" style="margin-top:18px;">
+          <table class="data" id="rankTable">
+            <caption class="sr-only">회차별 등수별 당첨자 수와 당첨금</caption>
+            <thead>
+              <tr><th>등수</th><th>당첨자 수</th><th>1인당 당첨금</th><th>세후 1인 수령액</th><th>비고</th></tr>
+            </thead>
+            <tbody id="rankTableBody">
+              <tr class="is-top"><td><span class="rank-badge r1">1등</span></td><td class="num">9명</td><td class="num">3,103,164,459원</td><td class="num">2,112,120,189원</td><td>6개 일치</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <div class="section-head">
+      <div>
+        <h2>최근 10회 당첨번호</h2>
+        <p>가장 최근 추첨된 10개 회차를 한 번에 확인할 수 있습니다.</p>
+      </div>
+      <span class="chip">기준 <b id="recentBase">2026.11.14</b></span>
+    </div>
+    <div class="card">
+      <div class="table-scroll">
+        <table class="data">
+          <caption class="sr-only">최근 10회 당첨번호</caption>
+          <thead>
+            <tr><th>회차</th><th>추첨일</th><th style="text-align:left;">당첨번호 (+보너스)</th><th>1등 당첨자</th><th>1등 1인당</th></tr>
+          </thead>
+          <tbody id="recentTableBody">
+            <tr><td class="num">1250회</td><td class="num">2026-11-14</td><td style="text-align:left;">1, 5, 18, 23, 27, 28 + 8</td><td class="num">9명</td><td class="num">31억 316만 4,459원</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="notice" style="margin-top:16px;">
+      <span aria-hidden="true">ⓘ</span>
+      <p style="margin:0;">당첨번호·당첨금·판매액은 <b>동행복권 공식 홈페이지</b>에서 2026년 11월 16일 수집한 값입니다. 1~5등 세후 금액은 2026년 현행 세율(200만원 초과 22%, 3억원 초과분 33%)로 계산했으며 실제 원천징수 금액과 1원 단위에서 차이가 날 수 있습니다.</p>
+    </div>
+  </section>
+
+  <!-- ================= 번호 분석 ================= -->
+  <section class="panel" id="panel-stats" role="tabpanel" aria-label="번호 분석" hidden>
+    <div class="card">
+      <div class="draw-head">
+        <div>
+          <h2 class="card-title">번호 분석 대시보드</h2>
+          <p class="card-desc">선택한 구간의 회차를 실시간으로 다시 계산합니다. 기준 구간: <b id="statsRangeLabel">최근 100회</b></p>
+        </div>
+        <div class="segmented" id="rangeSeg" role="group" aria-label="분석 구간 선택">
+          <button type="button" data-range="10">최근 10회</button>
+          <button type="button" data-range="30">30회</button>
+          <button type="button" data-range="50">50회</button>
+          <button type="button" data-range="100" class="is-active">100회</button>
+          <button type="button" data-range="all">전체 1,250회</button>
+        </div>
+      </div>
+      <div class="chip-row" id="statsSummary">
+        <span class="chip">분석 회차 <b>100회</b></span>
+        <span class="chip">총 600개 번호</span>
+        <span class="chip">번호당 평균 출현 <b>13.3회</b></span>
+        <span class="chip">총 판매액 <b>1조 1,662억</b></span>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3 class="card-title">번호별 출현 빈도 (1~45)</h3>
+      <p class="card-desc">색이 진할수록 해당 구간에서 자주 나온 번호입니다. 각 칸의 아래 숫자는 출현 횟수입니다.</p>
+      <div class="heatmap" id="heatmap" aria-label="번호별 출현 빈도 히트맵"></div>
+      <div class="divider"></div>
+      <div class="freq-list" id="freqList" aria-label="번호별 출현 빈도 막대 그래프"></div>
+    </div>
+
+    <div class="grid-2">
+      <div class="card">
+        <h3 class="card-title">핫넘버 · 콜드넘버</h3>
+        <p class="card-desc">선택 구간에서 가장 많이 나온 번호 6개와 가장 적게 나온 번호 6개입니다.</p>
+        <div class="field">
+          <div class="field-label"><strong>🔥 핫넘버</strong><span>많이 출현</span></div>
+          <div class="balls-row" id="hotNumbers"></div>
+        </div>
+        <div class="field">
+          <div class="field-label"><strong>❄️ 콜드넘버</strong><span>적게 출현</span></div>
+          <div class="balls-row" id="coldNumbers"></div>
+        </div>
+      </div>
+      <div class="card">
+        <h3 class="card-title">미출현 기간 TOP 10</h3>
+        <p class="card-desc">가장 최근 추첨부터 거슬러 올라가며 몇 회 연속 나오지 않았는지 계산합니다.</p>
+        <div class="table-scroll">
+          <table class="data">
+            <thead><tr><th>순위</th><th>번호</th><th>연속 미출현</th><th>마지막 출현</th></tr></thead>
+            <tbody id="gapTableBody"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3 class="card-title">홀짝 · 고저 · 번호대 분포</h3>
+      <p class="card-desc">한 회차 당첨번호 6개의 구성 비율을 집계했습니다. 고저는 1~22를 저, 23~45를 고로 구분합니다.</p>
+      <div class="grid-3" style="gap:24px;">
+        <div>
+          <div class="field-label"><strong>홀짝 비율</strong><span>홀 : 짝</span></div>
+          <div id="oddEvenDist"></div>
+        </div>
+        <div>
+          <div class="field-label"><strong>고저 비율</strong><span>저(1~22) : 고(23~45)</span></div>
+          <div id="lowHighDist"></div>
+        </div>
+        <div>
+          <div class="field-label"><strong>번호대별 분포</strong><span>구간별 누적 출현</span></div>
+          <div id="bandDist"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="grid-2">
+      <div class="card">
+        <h3 class="card-title">당첨번호 합계 분포</h3>
+        <p class="card-desc">6개 번호의 합계가 어느 구간에 몰려 있는지 보여줍니다. 평균 <b id="sumAvg">-</b>, 최소 <b id="sumMin">-</b>, 최대 <b id="sumMax">-</b>.</p>
+        <div id="sumHist"></div>
+      </div>
+      <div class="card">
+        <h3 class="card-title">연속번호 · 동반 출현</h3>
+        <p class="card-desc">연속된 번호(예: 12·13)가 포함된 회차 비율과, 같은 회차에 함께 나온 횟수가 많은 번호 조합입니다.</p>
+        <div id="consecDist" style="margin-bottom:8px;"></div>
+        <div class="chip-row" id="pairList"></div>
+      </div>
+    </div>
+
+    <div class="notice notice--warn" style="margin-top:16px;">
+      <span aria-hidden="true">⚠</span>
+      <p style="margin:0;"><b>통계는 참고 자료입니다.</b> 로또 6/45는 매 회차 독립적으로 추첨되는 무작위 게임입니다. 과거 출현 빈도가 높거나 낮다고 해서 다음 회차의 확률이 달라지지 않으며, 어떤 번호 조합도 당첨을 보장하지 않습니다.</p>
+    </div>
+  </section>
+
+  <!-- ================= 번호 생성기 ================= -->
+  <section class="panel" id="panel-generator" role="tabpanel" aria-label="번호 생성기" hidden>
+    <div class="gen-layout">
+      <div class="card">
+        <h2 class="card-title">조건 필터 번호 생성기</h2>
+        <p class="card-desc">고정수·제외수·홀짝 비율을 지정하면 조건에 맞는 5게임을 무작위로 만듭니다. 모든 조합은 매번 새로 뽑습니다.</p>
+
+        <div class="field">
+          <div class="field-label"><strong>고정수 <span id="fixedCount">0</span>/5</strong><span>반드시 포함할 번호 (최대 5개)</span></div>
+          <div class="num-grid" id="fixedGrid" role="group" aria-label="고정수 선택"></div>
+        </div>
+
+        <div class="field">
+          <div class="field-label"><strong>제외수 <span id="excludeCount">0</span>개</strong><span>절대 넣지 않을 번호 (여러 개 선택 가능)</span></div>
+          <div class="num-grid" id="excludeGrid" role="group" aria-label="제외수 선택"></div>
+        </div>
+
+        <div class="field">
+          <div class="field-label"><strong>홀짝 비율</strong><span>홀수 : 짝수</span></div>
+          <label class="sr-only" for="oddEvenSelect">홀짝 비율</label>
+          <select class="input" id="oddEvenSelect">
+            <option value="any">무관 (아무 조합)</option>
+            <option value="3:3" selected>3 : 3 (가장 흔한 비율)</option>
+            <option value="4:2">4 : 2</option>
+            <option value="2:4">2 : 4</option>
+            <option value="5:1">5 : 1</option>
+            <option value="1:5">1 : 5</option>
+            <option value="6:0">6 : 0</option>
+            <option value="0:6">0 : 6</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label class="check-line"><input type="checkbox" id="noConsecutive" checked> 연속번호 제외 (예: 12·13이 함께 나오지 않게)</label>
+        </div>
+
+        <div style="display:flex; gap:8px; flex-wrap:wrap;">
+          <button type="button" class="btn btn--primary" id="btnGenerate">🎲 5게임 생성</button>
+          <button type="button" class="btn" id="btnResetGen">초기화</button>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3 class="card-title">생성 결과</h3>
+        <p class="card-desc">각 게임의 <b>역대 조회</b>를 누르면 1~1,250회 전체와 대조해 몇 등에 해당했는지 바로 확인할 수 있습니다.</p>
+        <div id="gameList" class="game-list">
+          <div class="empty"><strong>아직 생성한 번호가 없습니다.</strong>왼쪽 조건을 정하고 ‘5게임 생성’을 눌러 주세요.</div>
+        </div>
+        <div class="notice" style="margin-top:14px;">
+          <span aria-hidden="true">ⓘ</span>
+          <p style="margin:0;">생성된 번호의 당첨 확률은 다른 번호와 완전히 같습니다. 이 도구는 조건 조합을 만들어 줄 뿐 당첨 가능성을 높이지 않습니다.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="card" style="margin-top:16px;">
+      <h2 class="card-title">내 번호로 역대 당첨 조회 (시뮬레이터)</h2>
+      <p class="card-desc">번호 6개를 직접 고르면, 그 조합이 1회~1,250회 역대 회차에서 1~5등에 몇 번 해당했는지 계산합니다.</p>
+      <div class="num-grid" id="pickGrid" role="group" aria-label="내 번호 6개 선택"></div>
+      <div style="display:flex; align-items:center; gap:10px; margin-top:14px; flex-wrap:wrap;">
+        <span class="chip">선택 <b id="pickCount">0</b>/6</span>
+        <button type="button" class="btn btn--primary" id="btnSimPick" disabled>역대 당첨 조회</button>
+        <button type="button" class="btn" id="btnClearPick">선택 초기화</button>
+      </div>
+      <div id="simResult" style="margin-top:16px;"></div>
+    </div>
+
+    <div class="card">
+      <h3 class="card-title">등수별 당첨 확률 (참고)</h3>
+      <div class="table-scroll">
+        <table class="data">
+          <thead><tr><th>등수</th><th>조건</th><th>확률</th><th>1게임 기준</th></tr></thead>
+          <tbody>
+            <tr><td><span class="rank-badge r1">1등</span></td><td>6개 일치</td><td class="num">1 / 8,145,060</td><td>약 814만 게임 중 1</td></tr>
+            <tr><td><span class="rank-badge r2">2등</span></td><td>5개 일치 + 보너스</td><td class="num">1 / 1,357,510</td><td>약 136만 게임 중 1</td></tr>
+            <tr><td><span class="rank-badge r3">3등</span></td><td>5개 일치</td><td class="num">1 / 35,724</td><td>약 3.6만 게임 중 1</td></tr>
+            <tr><td>4등</td><td>4개 일치</td><td class="num">1 / 733</td><td>약 733게임 중 1</td></tr>
+            <tr><td>5등</td><td>3개 일치</td><td class="num">1 / 45</td><td>약 45게임 중 1</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= 세금 계산기 ================= -->
+  <section class="panel" id="panel-calculator" role="tabpanel" aria-label="세금 계산기" hidden>
+    <div class="calc-layout">
+      <div class="card">
+        <h2 class="card-title">당첨금 실수령액 계산기</h2>
+        <p class="card-desc">2026년 현행 소득세법 기준입니다. 당첨금을 입력하면 소득세·지방소득세와 세후 실수령액을 1원 단위로 계산합니다.</p>
+        <div class="amount-box">
+          <label class="sr-only" for="amountInput">당첨금</label>
+          <input type="text" id="amountInput" inputmode="numeric" value="3,103,164,459" placeholder="당첨금 입력">
+          <span class="won">원</span>
+        </div>
+        <div class="quick-row" id="quickRow">
+          <button type="button" class="quick" data-amount="3103164459">1등 <b>31억</b></button>
+          <button type="button" class="quick" data-amount="46547467">2등 <b>4,655만</b></button>
+          <button type="button" class="quick" data-amount="1491906">3등 <b>149만</b></button>
+          <button type="button" class="quick" data-amount="50000">4등 <b>5만</b></button>
+          <button type="button" class="quick" data-amount="5000">5등 <b>5천</b></button>
+          <button type="button" class="quick" data-amount="20000000">2천만</button>
+          <button type="button" class="quick" data-amount="500000000">5억</button>
+        </div>
+        <div class="field" style="margin-top:16px; margin-bottom:0;">
+          <label class="check-line"><input type="checkbox" id="costToggle"> 게임 구입금액 1,000원을 필요경비로 차감해 계산</label>
+        </div>
+        <div class="notice" style="margin-top:14px;">
+          <span aria-hidden="true">ⓘ</span>
+          <p style="margin:0;">원 단위 미만은 절사했습니다. <b>200만원 이하</b>는 비과세이며, <b>200만원을 넘으면 전액</b>이 과세 대상입니다(초과분만 과세하는 방식이 아닙니다).</p>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="result-hero">
+          <div class="label">세후 실수령액</div>
+          <div class="value" id="calcNet">21억 1,212만 189원</div>
+          <div class="sub">세전 <b id="calcGross">3,103,164,459원</b> · 총 세금 <b id="calcTotalTax">991,044,270원</b> · 실효세율 <b id="calcRate">31.9%</b></div>
+        </div>
+        <div class="split-list">
+          <div class="split-row"><span>소득세 (20% / 30%)</span><b id="calcIncomeTax">900,949,337원</b></div>
+          <div class="split-row"><span>지방소득세 (2% / 3%)</span><b id="calcLocalTax">90,094,933원</b></div>
+          <div class="split-row"><span>세금 합계</span><b id="calcTotalTax2">991,044,270원</b></div>
+          <div class="split-row"><span>적용 구간</span><b id="calcBracket">3억원 초과</b></div>
+        </div>
+        <div class="divider"></div>
+        <h3 class="card-title" style="font-size:15px;">세율 구간별 계산 내역</h3>
+        <div class="table-scroll">
+          <table class="data">
+            <thead><tr><th>과세 구간</th><th>금액</th><th>세율</th><th>세금</th></tr></thead>
+            <tbody id="calcBracketBody"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2 class="card-title">복권 당첨금 세금 구조 (2026년 기준)</h2>
+      <div class="prose">
+        <p>복권 당첨금은 소득세법상 <b>기타소득</b>으로 분류되어 원천징수됩니다. 당첨금을 받을 때 이미 세금이 빠진 금액을 수령하므로, 별도로 종합소득세 신고를 하지 않아도 됩니다(기타소득 분리과세).</p>
+        <ul>
+          <li><b>200만원 이하</b> — 비과세. 4등(5만원)·5등(5,000원)은 세금이 없습니다.</li>
+          <li><b>200만원 초과 ~ 3억원 이하</b> — 당첨금 전액에 22% (소득세 20% + 지방소득세 2%).</li>
+          <li><b>3억원 초과</b> — 3억원까지는 22%, 3억원을 넘는 금액에 33% (소득세 30% + 지방소득세 3%).</li>
+        </ul>
+        <p>예를 들어 1등 당첨금이 31억 316만 4,459원이라면, 3억원까지 6,600만원(22%)과 초과분 28억 316만 4,459원의 33%인 9억 2,504만 4,270원을 합해 9억 9,104만 4,270원을 세금으로 내고 21억 1,212만 189원을 받게 됩니다.</p>
+        <p>실무에서는 당첨 복권 1게임의 구입금액 1,000원을 필요경비로 차감해 계산하는 경우가 있어, 세금이 최대 330원 적어질 수 있습니다. 위 계산기의 체크박스로 두 방식을 모두 확인할 수 있습니다.</p>
+      </div>
+      <p style="margin:14px 0 0; font-size:13px; color:var(--muted);">자세한 수령 절차와 준비물은 <a href="guide.html" style="color:var(--brand); font-weight:700;">당첨금 수령 가이드</a>에서 확인하세요.</p>
+    </div>
+  </section>
+
+  <!-- ================= 공통 안내 ================= -->
+  <div class="section-head">
+    <div>
+      <h2>로또 6/45, 이렇게 활용하세요</h2>
+      <p>번호 선택에 정답은 없습니다. 데이터는 판단을 돕는 참고 자료일 뿐입니다.</p>
+    </div>
+  </div>
+  <div class="grid-3">
+    <a class="card" href="guide.html">
+      <div style="font-size:22px; margin-bottom:8px;">🏦</div>
+      <h3 class="card-title">당첨금 수령 가이드</h3>
+      <p class="card-desc" style="margin:0;">1등은 농협은행 본점, 2·3등은 지점, 4·5등은 판매점. 준비물과 지급 기한을 정리했습니다.</p>
+    </a>
+    <a class="card" href="#stats" data-tab="stats">
+      <div style="font-size:22px; margin-bottom:8px;">📊</div>
+      <h3 class="card-title">통계 읽는 법</h3>
+      <p class="card-desc" style="margin:0;">출현 빈도와 미출현 기간은 과거 기록입니다. 확률이 변하지 않는다는 점을 함께 확인하세요.</p>
+    </a>
+    <a class="card" href="#calculator" data-tab="calculator">
+      <div style="font-size:22px; margin-bottom:8px;">🧾</div>
+      <h3 class="card-title">세금 미리 계산</h3>
+      <p class="card-desc" style="margin:0;">당첨금별 실수령액을 미리 확인하면 지출 계획을 세우기 쉬워집니다.</p>
+    </a>
+  </div>
+
+  <div class="section-head">
+    <div>
+      <h2>자주 묻는 질문</h2>
+      <p>로또 6/45와 이 사이트에 대해 가장 많이 궁금해하는 내용입니다.</p>
+    </div>
+  </div>
+  <div class="faq">
+    <details>
+      <summary>이 사이트의 당첨번호는 실제 데이터인가요?</summary>
+      <p>네. 동행복권 공식 홈페이지의 회차별 조회 데이터를 그대로 수집해 1회(2002년 12월 7일)부터 1,250회(2026년 11월 14일)까지 저장했습니다. 당첨번호, 보너스번호, 등수별 당첨자 수와 당첨금, 회차 판매액을 모두 포함하며 임의로 만든 값은 없습니다.</p>
+    </details>
+    <details>
+      <summary>번호 통계를 보면 당첨 확률이 높아지나요?</summary>
+      <p>아니요. 로또 6/45는 매 회차 독립적으로 추첨되므로 어떤 번호 조합을 골라도 1등 확률은 1/8,145,060으로 같습니다. 통계는 지난 결과를 정리한 기록이며 미래를 예측하지 않습니다. 번호 선택의 재미와 참고용으로만 활용하세요.</p>
+    </details>
+    <details>
+      <summary>당첨금에 세금은 얼마나 떼나요?</summary>
+      <p>200만원 이하는 비과세입니다. 200만원을 넘으면 전액에 22%(소득세 20% + 지방소득세 2%)가 적용되고, 3억원을 넘는 금액에는 33%(소득세 30% + 지방소득세 3%)가 적용됩니다. 세금 계산기에서 금액별로 바로 확인할 수 있습니다.</p>
+    </details>
+    <details>
+      <summary>당첨금은 언제까지 받을 수 있나요?</summary>
+      <p>당첨금 지급개시일(추첨일 다음날)부터 1년 안에 수령해야 하며, 기한이 지나면 권리가 소멸해 받을 수 없습니다. 마감 직전에 몰리지 않도록 여유 있게 방문하세요. 자세한 절차는 수령 가이드에 정리되어 있습니다.</p>
+    </details>
+    <details>
+      <summary>이 사이트는 로또를 판매하나요?</summary>
+      <p>아니요. 이 사이트는 정보 제공만 하는 비영리 분석 사이트로, 복권 판매나 구매 대행을 하지 않습니다. 복권 구매는 만 19세 이상만 가능하며, 반드시 동행복권 공식 판매점이나 공식 온라인 채널을 이용하세요.</p>
+    </details>
+  </div>
+
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="footer-top">
+      <div>
+        <div class="footer-brand">🎱 로또 6/45 분석소</div>
+        <p style="margin:6px 0 0;">공식 데이터 기반 번호 통계 · 세후 실수령액 계산</p>
+      </div>
+      <nav class="footer-nav" aria-label="바닥글 메뉴">
+        <a href="index.html">홈</a>
+        <a href="guide.html">수령 가이드</a>
+        <a href="privacy.html">개인정보처리방침</a>
+        <a href="terms.html">이용약관 · 면책</a>
+        <a href="mailto:contact@lotto645.example">문의</a>
+      </nav>
+    </div>
+    <p class="footer-note">
+      <b>데이터 출처</b> 동행복권 공식 홈페이지(dhlottery.co.kr) · 수록 범위 제1회~제1,250회 · 수집일 2026년 11월 16일<br>
+      <b>면책</b> 본 사이트의 모든 통계와 계산 결과는 참고용 정보이며 당첨을 보장하지 않습니다. 당첨금·세금·수령 절차의 최종 기준은 동행복권과 국세청 안내를 따르세요.<br>
+      <b>문의</b> contact@lotto645.example
+    </p>
+  </div>
+</footer>
+
+<script src="assets/js/lotto-core.js"></script>
+<script src="assets/js/app.js"></script>
+</body>
+</html>
