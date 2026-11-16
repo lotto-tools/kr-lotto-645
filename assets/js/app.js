@@ -40,7 +40,7 @@
   /* ---------- 유튜브 추첨 방송 링크 ----------
      동행복권은 추첨 방송을 공식 유튜브 채널에서 생중계하고 지난 방송도 남겨 두지만,
      회차별로 고정된 영상 주소를 공개하지는 않는다. 그래서 회차 번호로 검색해 연다. */
-  var YT_CHANNEL = 'https://www.youtube.com/@dhlottery';
+  var YT_CHANNEL = 'https://www.youtube.com/channel/UCEk3VwaA6e4H9TW1vSXOjDA';
 
   function ytRoundUrl(r) {
     var q = '로또 ' + r + '회 추첨 방송 동행복권';
