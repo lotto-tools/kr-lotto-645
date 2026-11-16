@@ -6,6 +6,7 @@
 
 - 최신 회차: **제1,250회 / 2026-11-14 추첨 / 1, 5, 18, 23, 27, 28 + 보너스 8 / 1등 9명 각 3,103,164,459원**
 - 데이터 수집일: 2026-11-16
+- **운영 주소**: https://lotto-tools.github.io/kr-lotto-645/ (GitHub Pages, `main` / root)
 
 ---
 
@@ -102,25 +103,30 @@ python3 tools/browser_check.py
 ## 6. 배포
 
 ### GitHub Pages
-1. 저장소를 만들고 `lotto-site` 폴더 내용을 루트에 올립니다.
-2. Settings → Pages → Source: `Deploy from a branch` → `main` / `/ (root)`.
-3. 발급된 주소(예: `https://아이디.github.io/저장소명/`)로 접속합니다.
+1. 이 사이트는 `lotto-tools/kr-lotto-645` 저장소의 `main` / `/ (root)`에서 배포되어
+   https://lotto-tools.github.io/kr-lotto-645/ 로 운영 중입니다.
+2. 저장소 내용을 갱신해 push하면 1~2분 뒤 자동으로 다시 배포됩니다.
+3. 처음 배포할 때는 Settings → Pages → Source: `Deploy from a branch` → `main` / `/ (root)`를 선택합니다.
 
 ### Cloudflare Pages
 1. Cloudflare Pages → Create project → 저장소 연결.
 2. Framework preset: **None**, Build command: 비움, Build output directory: `/`(또는 `lotto-site`).
 3. 배포 후 커스텀 도메인을 연결합니다.
 
-## 7. 배포 전 반드시 교체할 항목
+## 7. 배포 후 남은 교체 항목
+
+도메인은 이미 실제 운영 주소(`https://lotto-tools.github.io/kr-lotto-645`)로 설정되어 있습니다.
+아래 항목만 남아 있습니다.
 
 | 항목 | 현재 값 | 교체 방법 |
 |---|---|---|
-| 도메인 | `https://lotto-tools.github.io/kr-lotto-645` | `index.html`·`guide.html`·`privacy.html`·`terms.html`의 canonical/og:url/og:image, `sitemap.xml`, `robots.txt` |
-| 문의 이메일 | `contact@lotto645.example` | 4개 페이지 푸터와 `privacy.html`·`terms.html` 문의처 |
+| 문의 이메일 | `contact@lotto645.example` | 4개 페이지 푸터와 `privacy.html`·`terms.html` 문의처 (개인 메일 노출을 피하려고 일부러 예시 주소로 둔 상태) |
 | 애드센스 | 주석만 있음 | 승인 후 `<head>`에 애드센스 스크립트, 본문 광고 자리(`Google AdSense` 주석 위치)에 광고 단위 삽입 |
 | ads.txt | 없음 | 애드센스 승인 후 `google.com, pub-0000000000000000, DIRECT, f08c47fec0942fa0` 형식으로 추가 |
 
-`lotto645.example`은 예시 도메인입니다. 실제 도메인으로 바꾸지 않으면 검색엔진·SNS 공유 정보가 잘못 표시됩니다.
+사용자 이름이나 저장소 이름을 바꾸면 검색엔진·SNS 공유 정보가 깨지므로, 그때는
+`grep -rl "lotto-tools.github.io/kr-lotto-645" .` 로 찾아 canonical·og:url·og:image,
+`sitemap.xml`, `robots.txt`를 함께 고쳐 주세요.
 
 ## 8. 유의 사항
 
