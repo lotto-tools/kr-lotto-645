@@ -37,6 +37,23 @@
   }
   function pct(a, b) { return b ? (a / b) * 100 : 0; }
 
+  /* ---------- 유튜브 추첨 방송 링크 ----------
+     동행복권은 추첨 방송을 공식 유튜브 채널에서 생중계하고 지난 방송도 남겨 두지만,
+     회차별로 고정된 영상 주소를 공개하지는 않는다. 그래서 회차 번호로 검색해 연다. */
+  var YT_CHANNEL = 'https://www.youtube.com/@dhlottery';
+
+  function ytRoundUrl(r) {
+    var q = '로또 ' + r + '회 추첨 방송 동행복권';
+    return 'https://www.youtube.com/results?search_query=' + encodeURIComponent(q).replace(/%20/g, '+');
+  }
+
+  function applyRoundVideo(el, r) {
+    if (!el) return;
+    el.href = ytRoundUrl(r);
+    el.textContent = '▶ 제' + r + '회 추첨 방송 보기 (YouTube)';
+    el.setAttribute('aria-label', '제' + r + '회 추첨 방송을 유튜브에서 보기');
+  }
+
   /* ---------- 데이터 로드 ---------- */
   function loadFallback() {
     return new Promise(function (resolve, reject) {
@@ -120,6 +137,7 @@
     $('#heroPrize1Net').textContent = C.formatKoreanAmount(net1);
     $('#heroPrize2').textContent = C.formatKoreanAmount(d.a[1]);
     $('#heroPrize3').textContent = C.formatKoreanAmount(d.a[2]);
+    applyRoundVideo($('#heroVideoLink'), d.r);
   }
 
   function rankNote(i) {
@@ -167,6 +185,7 @@
 
     $('#btnPrevRound').disabled = d.r <= 1;
     $('#btnNextRound').disabled = d.r >= state.latestRound;
+    applyRoundVideo($('#drawVideoLink'), d.r);
   }
 
   function renderRecent() {
@@ -182,7 +201,9 @@
         '<td class="num">' + d.d + '</td>' +
         '<td style="text-align:left; white-space:nowrap;">' + nums + '</td>' +
         '<td class="num">' + (d.w[0] > 0 ? C.formatNumber(d.w[0]) + '명' : '-') + '</td>' +
-        '<td class="num">' + (d.a[0] > 0 ? C.formatKoreanAmount(d.a[0]) : '-') + '</td>';
+        '<td class="num">' + (d.a[0] > 0 ? C.formatKoreanAmount(d.a[0]) : '-') + '</td>' +
+        '<td class="num"><a class="video-link" href="' + ytRoundUrl(d.r) + '" target="_blank" rel="noopener noreferrer" ' +
+          'aria-label="' + d.r + '회 추첨 방송을 유튜브에서 보기">▶ 영상</a></td>';
       tb.appendChild(tr);
     });
     var base = $('#recentBase');
