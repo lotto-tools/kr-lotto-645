@@ -29,6 +29,8 @@ lotto-site/
 │   ├── draws.json          실제 회차 데이터 (1~1,250회)
 │   └── draws.js            같은 데이터의 JS 사본 (file:// 로 열 때 대체 로더)
 ├── tests/unit_test.py      계산 로직 단위 테스트 (QuickJS로 JS 실행)
+├── .github/workflows/
+│   └── update.yml          토요일 자동 갱신 (수집 → 검증 → 커밋 → 푸시)
 └── tools/
     ├── update_draws.py     새 회차 수집·데이터 갱신
     └── browser_check.py    헤드리스 Chromium 검증·스크린샷 (선택)
@@ -44,10 +46,20 @@ lotto-site/
   `w` 1~5등 당첨자 수, `a` 1~5등 1인당 당첨금, `s` 해당 회차 판매액.
 - 임의로 만든 값은 없으며, 수집 후 회차 연속성·날짜(전부 토요일)·번호 범위·중복 여부를 검증했습니다.
 
-### 주간 갱신
+### 주간 자동 갱신 (GitHub Actions — 피클 사용량 없음)
+
+`.github/workflows/update.yml`이 GitHub 서버에서 `tools/update_draws.py`를 실행합니다.
+
+| | |
+|---|---|
+| 실행 시각 | `0 13 * * 6` (UTC) = **토요일 22:00 KST**, 추첨(20:45) 결과 발표 직후 |
+| 수동 실행 | Actions → *로또 6/45 회차 자동 갱신* → **Run workflow** (`workflow_dispatch`) |
+| 바뀐 게 있으면 | `github-actions[bot]` 이름으로 `data/` 커밋 후 `main`에 푸시 → Pages 자동 재배포 |
+| 바뀐 게 없으면 | 파일을 건드리지 않으므로 커밋이 생기지 않음 |
+| 이상 징후 | 수집 결과가 저장된 회차보다 적거나 통신이 실패하면 아무것도 쓰지 않고 종료 코드 2로 실패 → Actions 탭에 실패로 표시 |
 
 ```bash
-python3 tools/update_draws.py          # 새 회차만 추가 (매주 일요일 이후 실행 권장)
+python3 tools/update_draws.py          # 새 회차만 추가 (직접 실행할 때)
 python3 tools/update_draws.py --full   # 전체 재수집
 ```
 
@@ -59,7 +71,7 @@ python3 tools/update_draws.py --full   # 전체 재수집
 | 기능 | 설명 |
 |---|---|
 | 최신 회차 조회 | 등수별 당첨자 수·당첨금·**세후 1인 수령액**, 판매액, 회차 검색(1~1,250), 최근 10회 목록 |
-| 추첨 영상 | 최신 회차·조회 카드·최근 10회 표에서 회차별 **“제N회 추첨 방송 보기 (YouTube)”** 링크(회차 번호로 유튜브 검색), 동행복권 [공식 유튜브](https://www.youtube.com/channel/UCEk3VwaA6e4H9TW1vSXOjDA) 채널 링크 |
+| 추첨 영상 | 최신 회차·조회 카드·최근 10회 표에서 회차별 **“제N회 추첨 방송 보기 (YouTube)”** 링크(회차 번호로 유튜브 검색), 동행복권 [공식 유튜브](https://www.youtube.com/channel/UCEk3VwaA6e4H9TW1vSXOjDA)(`동행복권 - YouTube`) 채널 링크 |
 | 번호 분석 | 최근 10/30/50/100/전체 구간 실시간 재계산, 45개 번호 빈도 막대·히트맵, 핫/콜드 넘버, 연속 미출현 TOP 10, 홀짝·고저·번호대 분포, 합계 분포, 연속번호·동반 출현 |
 | 번호 생성기 | 고정수(최대 5)·제외수(다중)·홀짝 비율·연속번호 제외 옵션으로 5게임 생성 |
 | 역대 시뮬레이터 | 생성 번호 또는 직접 고른 6개 번호가 1~1,250회에서 1~5등에 몇 번 해당했는지 즉시 조회 |
